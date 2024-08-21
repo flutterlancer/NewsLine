@@ -8,22 +8,41 @@ class AppRoutes {
   static Route onGenerateRoutes(RouteSettings settings) {
     switch (settings.name) {
       case '/':
-        return _materialRoute(const DailyNews());
+        return _pageRoute(const DailyNews());
 
       case '/ArticleDetails':
-        return _materialRoute(
+        return _pageRoute(
           ArticleDetailsView(article: settings.arguments as NewsArticleEntity),
         );
 
       case '/SavedArticles':
-        return _materialRoute(const SavedArticles());
+        return _pageRoute(const SavedArticles());
 
       default:
-        return _materialRoute(const DailyNews());
+        return _pageRoute(const DailyNews());
     }
   }
 
-  static Route<dynamic> _materialRoute(Widget view) {
-    return MaterialPageRoute(builder: (_) => view);
-  }
+  static PageRouteBuilder _pageRoute(Widget child,
+          {bool fullScreenDialog = false}) =>
+      PageRouteBuilder(
+        fullscreenDialog: fullScreenDialog,
+        pageBuilder: (context, animation, secondaryAnimation) => child,
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          const begin = Offset(1.0, 0.0);
+          const end = Offset.zero;
+          const curve = Curves.ease;
+
+          var tween = Tween<Offset>(begin: begin, end: end)
+              .chain(CurveTween(curve: curve));
+
+          return FadeTransition(
+            opacity: animation, // Use the same animation for both transitions
+            child: SlideTransition(
+              position: animation.drive(tween),
+              child: child,
+            ),
+          );
+        },
+      );
 }
