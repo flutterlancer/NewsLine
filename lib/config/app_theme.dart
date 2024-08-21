@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart'
-    show ThemeData, Colors, AppBarTheme, IconThemeData, TextStyle, Color;
+    show
+        AppBarTheme,
+        Color,
+        ColorScheme,
+        Colors,
+        IconThemeData,
+        TextStyle,
+        ThemeData;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 ThemeData appTheme() {
   return ThemeData(
     scaffoldBackgroundColor: Colors.white,
-    fontFamily: 'Muli',
+    fontFamily: 'Inter',
+    colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
     appBarTheme: _appBarTheme(),
   );
 }

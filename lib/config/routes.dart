@@ -1,28 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:newsapp/features/news/domain/entities/article_entity.dart';
+import 'package:newsapp/features/news/presentation/views/article_details/article_details.dart';
+import 'package:newsapp/features/news/presentation/views/daily_news/daily_news.dart';
+import 'package:newsapp/features/news/presentation/views/saved_articles/saved_articles.dart';
 
 class AppRoutes {
   static Route onGenerateRoutes(RouteSettings settings) {
     switch (settings.name) {
       case '/':
-        return _materialRoute(const /*DailyNews*/ Scaffold());
+        return _materialRoute(const DailyNews());
 
       case '/ArticleDetails':
         return _materialRoute(
-          const Scaffold(),
-          // ArticleDetailsView(article: settings.arguments as ArticleEntity),
+          ArticleDetailsView(article: settings.arguments as NewsArticleEntity),
         );
 
       case '/SavedArticles':
-        return _materialRoute(
-          const Scaffold(),
-          // const SavedArticles(),
-        );
+        return _materialRoute(const SavedArticles());
 
       default:
-        return _materialRoute(
-          const Scaffold(),
-          // const DailyNews(),
-        );
+        return _materialRoute(const DailyNews());
     }
   }
 
