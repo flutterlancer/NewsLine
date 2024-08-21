@@ -1,7 +1,3 @@
-# DailyNews Screen in NewsLine Flutter Application
-
-This screen is part of the NewsLine Flutter application, which provides daily news updates.
-
 ## Description
 
 The DailyNews screen displays a list of articles fetched from a remote data source. It uses the Bloc pattern for state management and the Flutter Bloc library for handling the business logic.
