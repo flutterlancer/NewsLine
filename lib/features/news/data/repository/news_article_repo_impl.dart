@@ -12,7 +12,7 @@ import '../source/remote/news_api_service.dart';
 
 class NewsArticleRepoImpl extends NewsArticleRepository {
   final NewsApiService _newsApiService;
-  final NewsDatabase _appDatabase;
+  final AppDatabase _appDatabase;
   NewsArticleRepoImpl(this._newsApiService, this._appDatabase);
 
   @override

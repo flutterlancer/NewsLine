@@ -9,6 +9,6 @@ import 'package:sqflite/sqflite.dart' as sqflite;
 part 'news_database.g.dart';
 
 @Database(version: 1, entities: [NewsArticleModel])
-abstract class NewsDatabase extends FloorDatabase {
+abstract class AppDatabase extends FloorDatabase {
   NewsArticleDao get articleDAO;
 }

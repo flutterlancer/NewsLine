@@ -6,33 +6,33 @@ part of 'news_database.dart';
 // FloorGenerator
 // **************************************************************************
 
-abstract class $NewsDatabaseBuilderContract {
+abstract class $AppDatabaseBuilderContract {
   /// Adds migrations to the builder.
-  $NewsDatabaseBuilderContract addMigrations(List<Migration> migrations);
+  $AppDatabaseBuilderContract addMigrations(List<Migration> migrations);
 
   /// Adds a database [Callback] to the builder.
-  $NewsDatabaseBuilderContract addCallback(Callback callback);
+  $AppDatabaseBuilderContract addCallback(Callback callback);
 
   /// Creates the database and initializes it.
-  Future<NewsDatabase> build();
+  Future<AppDatabase> build();
 }
 
 // ignore: avoid_classes_with_only_static_members
-class $FloorNewsDatabase {
+class $FloorAppDatabase {
   /// Creates a database builder for a persistent database.
   /// Once a database is built, you should keep a reference to it and re-use it.
-  static $NewsDatabaseBuilderContract databaseBuilder(String name) =>
-      _$NewsDatabaseBuilder(name);
+  static $AppDatabaseBuilderContract databaseBuilder(String name) =>
+      _$AppDatabaseBuilder(name);
 
   /// Creates a database builder for an in memory database.
   /// Information stored in an in memory database disappears when the process is killed.
   /// Once a database is built, you should keep a reference to it and re-use it.
-  static $NewsDatabaseBuilderContract inMemoryDatabaseBuilder() =>
-      _$NewsDatabaseBuilder(null);
+  static $AppDatabaseBuilderContract inMemoryDatabaseBuilder() =>
+      _$AppDatabaseBuilder(null);
 }
 
-class _$NewsDatabaseBuilder implements $NewsDatabaseBuilderContract {
-  _$NewsDatabaseBuilder(this.name);
+class _$AppDatabaseBuilder implements $AppDatabaseBuilderContract {
+  _$AppDatabaseBuilder(this.name);
 
   final String? name;
 
@@ -41,23 +41,23 @@ class _$NewsDatabaseBuilder implements $NewsDatabaseBuilderContract {
   Callback? _callback;
 
   @override
-  $NewsDatabaseBuilderContract addMigrations(List<Migration> migrations) {
+  $AppDatabaseBuilderContract addMigrations(List<Migration> migrations) {
     _migrations.addAll(migrations);
     return this;
   }
 
   @override
-  $NewsDatabaseBuilderContract addCallback(Callback callback) {
+  $AppDatabaseBuilderContract addCallback(Callback callback) {
     _callback = callback;
     return this;
   }
 
   @override
-  Future<NewsDatabase> build() async {
+  Future<AppDatabase> build() async {
     final path = name != null
         ? await sqfliteDatabaseFactory.getDatabasePath(name!)
         : ':memory:';
-    final database = _$NewsDatabase();
+    final database = _$AppDatabase();
     database.database = await database.open(
       path,
       _migrations,
@@ -67,8 +67,8 @@ class _$NewsDatabaseBuilder implements $NewsDatabaseBuilderContract {
   }
 }
 
-class _$NewsDatabase extends NewsDatabase {
-  _$NewsDatabase([StreamController<String>? listener]) {
+class _$AppDatabase extends AppDatabase {
+  _$AppDatabase([StreamController<String>? listener]) {
     changeListener = listener ?? StreamController<String>.broadcast();
   }
 
