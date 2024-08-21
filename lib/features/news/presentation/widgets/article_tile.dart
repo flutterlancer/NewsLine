@@ -100,7 +100,6 @@ class ArticleWidget extends StatelessWidget {
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                fontFamily: 'Butler',
                 fontWeight: FontWeight.w900,
                 fontSize: 18.sp,
                 color: Colors.black87,
@@ -112,10 +111,7 @@ class ArticleWidget extends StatelessWidget {
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.only(top: 4.h),
-                  child: Text(
-                    article!.description!,
-                    maxLines: 2,
-                  ),
+                  child: Text(article!.description!, maxLines: 1),
                 ),
               ),
 
