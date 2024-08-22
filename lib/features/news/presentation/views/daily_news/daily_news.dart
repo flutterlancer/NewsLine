@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:newsapp/core/extensions/context.dart';
 
 import '../../blocs/article/remote/remote_article_bloc.dart';
 import '../../widgets/article_tile.dart';
@@ -13,7 +13,7 @@ class DailyNews extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppbar(context),
-      body: _buildBody(),
+      body: _buildBody(context),
     );
   }
 
@@ -39,25 +39,53 @@ class DailyNews extends StatelessWidget {
     );
   }
 
-  Widget _buildBody() {
-    return BlocBuilder<RemoteArticleBloc, RemoteArticlesState>(
-      builder: (_, state) {
-        if (state is RemoteArticlesLoading) {
-          return const Center(child: CupertinoActivityIndicator());
-        }
-        if (state is RemoteArticlesError) {
-          return const Center(child: Icon(Icons.refresh));
-        }
-        if (state is RemoteArticlesDone) {
-          return ListView.builder(
-            itemBuilder: (context, index) {
-              return ArticleWidget(article: state.articles![index]);
-            },
-            itemCount: state.articles!.length,
-          );
-        }
-        return const SizedBox();
+  Widget _buildBody(BuildContext context) {
+    return RefreshIndicator.adaptive(
+      onRefresh: () async {
+        context.remoteArticleBloc.add(const GetRemoteArticles());
       },
+      child: BlocBuilder<RemoteArticleBloc, RemoteArticlesState>(
+        builder: (_, state) {
+          if (state is RemoteArticlesLoading) {
+            return const Center(
+              child: CircularProgressIndicator(strokeWidth: 1),
+            );
+          }
+          if (state is RemoteArticlesError) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Text(
+                    state.error!,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                16.verticalSpace,
+                const SizedBox(),
+                TextButton(
+                  onPressed: () =>
+                      context.remoteArticleBloc.add(const GetRemoteArticles()),
+                  child: const Text(
+                    'Try again',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                )
+              ],
+            );
+          }
+          if (state is RemoteArticlesDone) {
+            return ListView.builder(
+              itemBuilder: (context, index) {
+                return ArticleWidget(article: state.articles![index]);
+              },
+              itemCount: state.articles!.length,
+            );
+          }
+          return const SizedBox();
+        },
+      ),
     );
   }
 
