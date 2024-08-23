@@ -105,6 +105,7 @@ class ArticleDetailsView extends StatelessWidget {
   Widget _buildFloatingActionButton() {
     return Builder(
       builder: (context) => FloatingActionButton(
+        backgroundColor: Colors.black,
         onPressed: () => _onFloatingActionButtonPressed(context),
         child: const Icon(Icons.bookmark, color: Colors.white),
       ),

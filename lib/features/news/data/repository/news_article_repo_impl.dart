@@ -20,8 +20,7 @@ class NewsArticleRepoImpl extends NewsArticleRepository {
     try {
       final httpResponse = await _newsApiService.getNewsArticles(
         apiKey: newsAPIKey,
-        country: countryQuery,
-        category: categoryQuery,
+        sources: sourcesQuery,
       );
 
       if (httpResponse.response.statusCode == HttpStatus.ok) {

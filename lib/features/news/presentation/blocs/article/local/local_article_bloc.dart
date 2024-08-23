@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsapp/features/news/domain/entities/article_entity.dart';
@@ -24,8 +26,11 @@ class LocalArticleBloc extends Bloc<LocalArticleEvent, LocalArticleState> {
   }
 
   void onGetSavedArticles(
-      GetSavedArticles event, Emitter<LocalArticleState> emit) async {
+    GetSavedArticles event,
+    Emitter<LocalArticleState> emit,
+  ) async {
     final articles = await _getSavedArticleUseCase();
+    log(articles.map((e) => e.id).toList().toString());
     emit(LocalArticlesDone(articles));
   }
 

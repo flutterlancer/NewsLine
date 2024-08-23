@@ -3,7 +3,7 @@ import 'package:newsapp/features/news/data/models/news_article.dart';
 
 @dao
 abstract class NewsArticleDao {
-  @Insert()
+  @Insert(onConflict: OnConflictStrategy.ignore)
   Future<void> insertArticle(NewsArticleModel article);
 
   @delete

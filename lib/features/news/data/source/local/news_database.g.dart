@@ -170,7 +170,7 @@ class _$NewsArticleDao extends NewsArticleDao {
   @override
   Future<void> insertArticle(NewsArticleModel article) async {
     await _newsArticleModelInsertionAdapter.insert(
-        article, OnConflictStrategy.abort);
+        article, OnConflictStrategy.ignore);
   }
 
   @override
